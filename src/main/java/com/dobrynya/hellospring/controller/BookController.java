@@ -2,6 +2,7 @@ package com.dobrynya.hellospring.controller;
 
 import com.dobrynya.hellospring.model.Book;
 import com.dobrynya.hellospring.service.BookService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -29,7 +30,7 @@ public class BookController {
     }
 
     @PostMapping
-    public ResponseEntity<Book> createBook(@RequestBody Book book) {
+    public ResponseEntity<Book> createBook(@Valid @RequestBody Book book) {
         Book savedBook = bookService.save(book);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedBook);
     }
@@ -42,7 +43,7 @@ public class BookController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Book> updateBook(@PathVariable Long id,
-                                           @RequestBody Book book) {
+                                           @Valid @RequestBody Book book) {
         Book updateBook = bookService.update(id, book);
         return ResponseEntity.ok(updateBook);
     }
