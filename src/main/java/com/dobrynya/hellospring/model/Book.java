@@ -15,12 +15,14 @@ public class Book {
     private String title;
     @NotBlank(message = "Автор обязателен")
     @Size(min = 2, max = 100, message = "Автор: от 2 до 100 символов")
-    private String author;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "author_id")
+    private Author author;
 
     public Book() {
     }
 
-    public Book(String title, String author) {
+    public Book(String title, Author author) {
         this.title = title;
         this.author = author;
     }
@@ -41,11 +43,11 @@ public class Book {
         this.title = title;
     }
 
-    public String getAuthor() {
+    public Author getAuthor() {
         return author;
     }
 
-    public void setAuthor(String author) {
+    public void setAuthor(Author author) {
         this.author = author;
     }
 }
