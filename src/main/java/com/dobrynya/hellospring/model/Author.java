@@ -1,7 +1,11 @@
 package com.dobrynya.hellospring.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "authors")
@@ -14,12 +18,9 @@ public class Author {
     @NotBlank(message = "Имя автора обязательно")
     private String name;
 
-    public Author(){
-    }
-
-    public Author(String name) {
-        this.name = name;
-    }
+    @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
+    @JsonIgnore
+    private List<Book> books = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -35,5 +36,13 @@ public class Author {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<Book> getBooks() {
+        return books;
+    }
+
+    public void setBooks(List<Book> books) {
+        this.books = books;
     }
 }

@@ -10,9 +10,11 @@ public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @NotBlank(message = "Название обязательно")
     @Size(min = 2, max = 200, message = "Название: от 2 до 200 символов")
     private String title;
+
     @NotBlank(message = "Автор обязателен")
     @Size(min = 2, max = 100, message = "Автор: от 2 до 100 символов")
     @ManyToOne(fetch = FetchType.LAZY)
