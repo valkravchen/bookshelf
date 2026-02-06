@@ -38,6 +38,7 @@ public class BookService {
         Book book = findById(id);
         book.setTitle(updateBook.getTitle());
         book.setAuthor(updateBook.getAuthor());
+        book.setTags(updateBook.getTags());
         return bookRepository.save(book);
     }
 }
