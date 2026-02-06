@@ -22,7 +22,7 @@ public class GlobalExceptionHandler {
      * @ExceptionHandler(SomeException.class) - метод вызывается,
      * когда выбрасывается указанное исключение.
      */
-    public ResponseEntity<String> handlerBookNotFound(BookNotFoundException ex) {
+    public ResponseEntity<String> handleBookNotFound(BookNotFoundException ex) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
     }
 
@@ -37,6 +37,11 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(AuthorNotFoundException.class)
     public ResponseEntity<String> handleAuthorNotFound(AuthorNotFoundException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+    }
+
+    @ExceptionHandler(TagNotFoundException.class)
+    public ResponseEntity<String> handleTagNotFound(TagNotFoundException ex) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
     }
 }
