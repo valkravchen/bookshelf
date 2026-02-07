@@ -47,4 +47,26 @@ public class BookController {
         Book updateBook = bookService.update(id, book);
         return ResponseEntity.ok(updateBook);
     }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<Book>> searchBooks(
+            @RequestParam(required = false) String title,
+            @RequestParam(required = false) Long authorId,
+            @RequestParam(required = false) String authorName
+    ) {
+        // - Если передан title → искать по title
+        if (title != null) {
+            return ResponseEntity.ok(bookService.searchByTitle(title));
+        }
+        // - Если передан authorId → искать по authorId
+        if (authorId != null) {
+            return ResponseEntity.ok(bookService.findByAuthorId(authorId));
+        }
+        // - Если передан authorName → искать по authorName
+        if (authorName != null) {
+            return ResponseEntity.ok(bookService.findByAuthorName(authorName));
+        }
+        // - Если ничего не передано → вернуть все книги
+        return ResponseEntity.ok(bookService.findAll());
+    }
 }
