@@ -52,7 +52,9 @@ public class BookController {
     public ResponseEntity<List<Book>> searchBooks(
             @RequestParam(required = false) String title,
             @RequestParam(required = false) Long authorId,
-            @RequestParam(required = false) String authorName
+            @RequestParam(required = false) String authorName,
+            @RequestParam(required = false) Long tagId,
+            @RequestParam(required = false) String tagName
     ) {
         // - Если передан title → искать по title
         if (title != null) {
@@ -65,6 +67,14 @@ public class BookController {
         // - Если передан authorName → искать по authorName
         if (authorName != null) {
             return ResponseEntity.ok(bookService.findByAuthorName(authorName));
+        }
+
+        if (tagId != null) {
+            return ResponseEntity.ok(bookService.findByTagId(tagId));
+        }
+
+        if (tagName != null) {
+            return ResponseEntity.ok(bookService.findTagName(tagName));
         }
         // - Если ничего не передано → вернуть все книги
         return ResponseEntity.ok(bookService.findAll());
