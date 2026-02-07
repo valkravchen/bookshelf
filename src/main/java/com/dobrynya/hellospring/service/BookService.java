@@ -41,4 +41,20 @@ public class BookService {
         book.setTags(updateBook.getTags());
         return bookRepository.save(book);
     }
+
+    public List<Book> findByTitle(String title) {
+        return bookRepository.findByTitle(title);
+    }
+
+    public List<Book> searchByTitle(String keyword) {
+        return bookRepository.findByTitleContainingIgnoreCase(keyword);
+    }
+
+    public List<Book> findByAuthorId(Long authorId) {
+        return bookRepository.findByAuthorId(authorId);
+    }
+
+    public List<Book> findByAuthorName(String authorName) {
+        return bookRepository.findByAuthorNameContainingIgnoreCase(authorName);
+    }
 }
