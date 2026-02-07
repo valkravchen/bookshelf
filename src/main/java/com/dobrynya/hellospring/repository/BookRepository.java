@@ -3,5 +3,18 @@ package com.dobrynya.hellospring.repository;
 import com.dobrynya.hellospring.model.Book;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
+
 public interface BookRepository extends JpaRepository<Book, Long> {
+    // Поиск по точному названию
+    List<Book> findByTitle(String title);
+
+    // Поиск по части названия (содержит)
+    List<Book> findByTitleContainingIgnoreCase(String keyword);
+
+    // Поиск по автору (id)
+    List<Book> findByAuthorId(Long authorId);
+
+    // Поиск по имени автора
+    List<Book> findByAuthorNameContainingIgnoreCase(String authorName);
 }
