@@ -1,5 +1,7 @@
 package com.dobrynya.hellospring.controller;
 
+import com.dobrynya.hellospring.dto.BookCreateDTO;
+import com.dobrynya.hellospring.dto.BookResponseDTO;
 import com.dobrynya.hellospring.model.Book;
 import com.dobrynya.hellospring.service.BookService;
 import jakarta.validation.Valid;
@@ -19,19 +21,18 @@ public class BookController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Book>> getAllBooks() {
+    public ResponseEntity<List<BookResponseDTO>> getAllBooks() {
         return ResponseEntity.ok(bookService.findAll());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Book> getBook(@PathVariable Long id) {
-        Book book = bookService.findById(id);
-        return ResponseEntity.ok(book);
+    public ResponseEntity<BookResponseDTO> getBook(@PathVariable Long id) {
+        return ResponseEntity.ok(bookService.findById(id));
     }
 
     @PostMapping
-    public ResponseEntity<Book> createBook(@Valid @RequestBody Book book) {
-        Book savedBook = bookService.save(book);
+    public ResponseEntity<BookResponseDTO> createBook(@Valid @RequestBody BookCreateDTO dto) {
+        BookResponseDTO savedBook = bookService.save(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedBook);
     }
 
@@ -42,14 +43,13 @@ public class BookController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Book> updateBook(@PathVariable Long id,
-                                           @Valid @RequestBody Book book) {
-        Book updateBook = bookService.update(id, book);
-        return ResponseEntity.ok(updateBook);
+    public ResponseEntity<BookResponseDTO> updateBook(@PathVariable Long id,
+                                                      @Valid @RequestBody BookCreateDTO dto) {
+        return ResponseEntity.ok(bookService.update(id, dto));
     }
 
     @GetMapping("/search")
-    public ResponseEntity<List<Book>> searchBooks(
+    public ResponseEntity<List<BookResponseDTO>> searchBooks(
             @RequestParam(required = false) String title,
             @RequestParam(required = false) Long authorId,
             @RequestParam(required = false) String authorName,
