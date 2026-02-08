@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Component
 public class BookMapper {
@@ -41,43 +42,59 @@ public class BookMapper {
         );
     }
 
-    public Book toEntity(BookCreateDTO dto) {
-        Book book = new Book();
-        book.setTitle(dto.getTitle());
-        // Найти авторов по id
-        Set<Author> authors = new HashSet<>(
-                authorRepository.findAllById(dto.getAuthorIds())
-        );
-        book.setAuthors(authors);
-        // Найти теги по id (если есть)
-        if (dto.getTagIds() != null && !dto.getTagIds().isEmpty()) {
-            Set<Tag> tags = new HashSet<>(
-                    tagRepository.findAllById(dto.getTagIds())
-            );
-            book.setTags(tags);
-        }
-        return book;
-    }
-
     public List<BookResponseDTO> toResponseDTOList(List<Book> books) {
         return books.stream()
                 .map(this::toResponseDTO)
                 .toList();
     }
 
+    public Book toEntity(BookCreateDTO dto) {
+        Book book = new Book();
+        book.setTitle(dto.getTitle());
+
+        // Найти или создать авторов
+        Set<Author> authors = dto.getAuthorNames().stream()
+                .map(this::findOrCreateAuthor)
+                .collect(Collectors.toSet());
+        book.setAuthors(authors);
+
+        // Найти или создать теги
+        if (dto.getTagNames() != null && !dto.getTagNames().isEmpty()) {
+            Set<Tag> tags = dto.getTagNames().stream()
+                    .map(this::findOrCreateTag)
+                    .collect(Collectors.toSet());
+            book.setTags(tags);
+        }
+        return book;
+    }
+
     public void updateEntity(Book book, BookCreateDTO dto) {
         book.setTitle(dto.getTitle());
-        Set<Author> authors = new HashSet<>(
-                authorRepository.findAllById(dto.getAuthorIds())
-        );
+
+        // Найти или создать авторов
+        Set<Author> authors = dto.getAuthorNames().stream()
+                .map(this::findOrCreateAuthor)
+                .collect(Collectors.toSet());
         book.setAuthors(authors);
-        if (dto.getTagIds() != null) {
-            Set<Tag> tags = new HashSet<>(
-                    tagRepository.findAllById(dto.getTagIds())
-            );
+
+        // Найти или создать теги
+        if (dto.getTagNames() != null && !dto.getTagNames().isEmpty()) {
+            Set<Tag> tags = dto.getTagNames().stream()
+                    .map(this::findOrCreateTag)
+                    .collect(Collectors.toSet());
             book.setTags(tags);
         } else {
             book.setTags(new HashSet<>());
         }
+    }
+
+    private Author findOrCreateAuthor(String name) {
+        return authorRepository.findByNameIgnoreCase(name)
+                .orElseGet(() -> authorRepository.save(new Author(name)));
+    }
+
+    private Tag findOrCreateTag(String name) {
+        return tagRepository.findByNameIgnoreCase(name)
+                .orElseGet(() -> tagRepository.save(new Tag(name)));
     }
 }
