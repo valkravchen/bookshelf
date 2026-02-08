@@ -2,7 +2,6 @@ package com.dobrynya.hellospring.controller;
 
 import com.dobrynya.hellospring.dto.BookCreateDTO;
 import com.dobrynya.hellospring.dto.BookResponseDTO;
-import com.dobrynya.hellospring.model.Book;
 import com.dobrynya.hellospring.service.BookService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
