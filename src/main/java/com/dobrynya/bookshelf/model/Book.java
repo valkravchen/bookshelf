@@ -38,6 +38,8 @@ public class Book {
     )
     private Set<Tag> tags = new HashSet<>();
 
+    private String pdfPath;
+
     public Book() {
     }
 
@@ -76,5 +78,13 @@ public class Book {
 
     public void setTags(Set<Tag> tags) {
         this.tags = tags;
+    }
+
+    public String getPdfPath() {
+        return pdfPath;
+    }
+
+    public void setPdfPath(String pdfPath) {
+        this.pdfPath = pdfPath;
     }
 }
