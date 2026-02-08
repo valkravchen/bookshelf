@@ -11,7 +11,7 @@
 	<groupId>com.dobrynya</groupId>
 	<artifactId>bookshelf</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>hello-spring</name>
+	<name>bookshelf</name>
 	<description>My first Spring Boot application</description>
 	<url/>
 	<licenses>
