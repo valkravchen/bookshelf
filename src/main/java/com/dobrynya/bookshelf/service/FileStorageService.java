@@ -40,4 +40,16 @@ public class FileStorageService {
             throw new RuntimeException("Не удалось прочитать файл: " + e);
         }
     }
+
+    public void deleteFile(String filePath) {
+        if (filePath == null) {
+            return;
+        }
+        try {
+            Path path = Paths.get(filePath);
+            Files.deleteIfExists(path);
+        } catch (IOException e) {
+            System.err.println("Не удалось удалить файл: " + filePath);
+        }
+    }
 }
