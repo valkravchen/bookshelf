@@ -7,6 +7,7 @@ import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -77,5 +78,23 @@ public class BookController {
         }
         // - Если ничего не передано → вернуть все книги
         return ResponseEntity.ok(bookService.findAll());
+    }
+
+    @PostMapping("/{id}/pdf")
+    public ResponseEntity<String> uploadPdf(
+            @PathVariable Long id,
+            @RequestParam("file") MultipartFile file) {
+
+        if (file.isEmpty()) {
+            return ResponseEntity.badRequest().body("Файл не выбран");
+        }
+
+        String contentType = file.getContentType();
+        if (contentType == null || !contentType.equals("application/pdf")) {
+            return ResponseEntity.badRequest().body("Только PDF файлы разрешены");
+        }
+
+        bookService.uploadPdf(id, file);
+        return ResponseEntity.ok("PDF загружен успешно");
     }
 }
