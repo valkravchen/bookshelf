@@ -13,9 +13,8 @@ public class BookCreateDTO {
     private String title;
 
     @NotEmpty(message = "Укажите хотя бы одного автора")
-    private Set<Long> authorIds;
-
-    private Set<Long> tagIds;
+    private Set<String> authorNames;
+    private Set<String> tagNames;
 
     public BookCreateDTO() {
     }
@@ -28,19 +27,19 @@ public class BookCreateDTO {
         this.title = title;
     }
 
-    public Set<Long> getAuthorIds() {
-        return authorIds;
+    public Set<String> getAuthorNames() {
+        return authorNames;
     }
 
-    public void setAuthorIds(Set<Long> authorIds) {
-        this.authorIds = authorIds;
+    public void setAuthorNames(Set<String> authorNames) {
+        this.authorNames = authorNames;
     }
 
-    public Set<Long> getTagIds() {
-        return tagIds;
+    public Set<String> getTagNames() {
+        return tagNames;
     }
 
-    public void setTagIds(Set<Long> tagIds) {
-        this.tagIds = tagIds;
+    public void setTagNames(Set<String> tagNames) {
+        this.tagNames = tagNames;
     }
 }
