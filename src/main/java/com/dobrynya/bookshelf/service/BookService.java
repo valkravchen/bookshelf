@@ -91,4 +91,13 @@ public class BookService {
         book.setPdfPath(filePath);
         bookRepository.save(book);
     }
+
+    public byte[] getPdf(Long bookId) {
+        Book book = bookRepository.findById(bookId)
+                .orElseThrow(() -> new BookNotFoundException(bookId));
+        if (book.getPdfPath() != null) {
+            throw new RuntimeException("У книги нет PDF файла");
+        }
+        return fileStorageService.getFile(book.getPdfPath());
+    }
 }
