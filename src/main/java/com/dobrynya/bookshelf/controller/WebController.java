@@ -1,11 +1,13 @@
 package com.dobrynya.bookshelf.controller;
 
+import com.dobrynya.bookshelf.dto.BookResponseDTO;
 import com.dobrynya.bookshelf.service.BookService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Controller
 public class WebController {
@@ -22,5 +24,12 @@ public class WebController {
         model.addAttribute("bookCount", bookService.findAll().size());
         model.addAttribute("currentDate", LocalDate.now());
         return "index";
+    }
+
+    @GetMapping("/books")
+    public String listBook(Model model) {
+        List<BookResponseDTO> books = bookService.findAll();
+        model.addAttribute("book-list", books);
+        return "book-list";
     }
 }
