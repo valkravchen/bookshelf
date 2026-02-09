@@ -27,7 +27,7 @@ public class WebController {
     }
 
     @GetMapping("/books")
-    public String listBook(Model model) {
+    public String listBooks(Model model) {
         List<BookResponseDTO> books = bookService.findAll();
         model.addAttribute("books", books);
         return "book-list";
