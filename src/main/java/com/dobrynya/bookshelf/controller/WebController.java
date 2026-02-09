@@ -29,7 +29,7 @@ public class WebController {
     @GetMapping("/books")
     public String listBook(Model model) {
         List<BookResponseDTO> books = bookService.findAll();
-        model.addAttribute("book-list", books);
+        model.addAttribute("books", books);
         return "book-list";
     }
 }
