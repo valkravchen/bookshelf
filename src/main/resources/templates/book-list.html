@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Книги — BookShelf</title>
+</head>
+<body>
+
+<h1>Мои книги</h1>
+
+<!-- Сообщение, если книг нет -->
+<p th:if="${#lists.isEmpty(books)}">
+    Библиотека пуста. Добавьте первую книгу!
+</p>
+
+<!-- Таблица, если книги есть -->
+<table border="1" th:unless="${#lists.isEmpty(books)}">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Название</th>
+        <th>Авторы</th>
+        <th>Теги</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="book : ${books}">
+        <td th:text="${book.id}">1</td>
+        <td th:text="${book.title}">Название книги</td>
+        <td th:text="${#strings.listJoin(book.authorNames, ', ')}">Автор</td>
+        <td th:text="${#strings.listJoin(book.tagNames, ', ')}">Тег</td>
+    </tr>
+    </tbody>
+</table>
+
+<br>
+<a th:href="@{/}">← На главную</a>
+
+</body>
+</html>
