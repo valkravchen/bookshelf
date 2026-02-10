@@ -5,9 +5,12 @@ import com.dobrynya.bookshelf.service.BookService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 @Controller
 public class WebController {
@@ -33,8 +36,16 @@ public class WebController {
         return "book-list";
     }
 
-    @GetMapping("/books/new")
-    public String showCreateForm() {
-        return "book-form";
-    }
+//    @GetMapping("/books/new")
+//    public String showCreateForm() {
+//        return "book-form";
+//    }
+//
+//    public String createBook(
+//            @RequestParam String title,
+//            @RequestParam String authorNames,
+//            @RequestParam(required = false) String tagNames
+//    ) {
+//        Set<String> authorSet = Arrays.stream(authorNames.split(","))
+//    }
 }
