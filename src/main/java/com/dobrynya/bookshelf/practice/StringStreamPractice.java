@@ -1,46 +1,31 @@
 package com.dobrynya.bookshelf.practice;
 
 import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 public class StringStreamPractice {
     public static void main(String[] args) {
-        String input = "Java, Spring, PostgreSQL, Docker";
-        String[] parts = input.split(",");
-        for (String part : parts) {
-            System.out.println("[" + part + "]");
-        }
-        String[] dirty = {"  Craig Walls  ", "", "  ", "Joshua Bloch", "  Brian Goetz "};
-        for (String s : dirty) {
-            String clean = s.trim();
-            if (!clean.isEmpty()) {
-                System.out.println("[" + clean + "]");
-            }
-        }
-        String authorNames = "Craig Walls, Joshua Bloch, Brian Goetz";
-        String[] parts2 = authorNames.split(",");
-        Set<String> authorSet = new HashSet<>();
-        for (String part : parts2) {
-            String trimmed = part.trim();
-            if (!trimmed.isEmpty()) {
-                authorSet.add(trimmed);
-            }
-        }
-        System.out.println("Задание 3: " + authorSet);
-        Set<String> authorSet2 = Arrays.stream(authorNames.split(","))
+        // Данные из формы
+        String title = "Spring in Action";
+        String authorInput = "Craig Walls, , Craig Walls";  // дубликат + пустой элемент
+        String tagInput = "Java, Spring, , Java";           // дубликат + пустой элемент
+        // 1. Авторы — обязательное поле
+        Set<String> authors = Arrays.stream(authorInput.split(","))
                 .map(String::trim)
                 .filter(string -> !string.isEmpty())
                 .collect(Collectors.toSet());
-        System.out.println("Задание 4: " + authorSet2);
 
-        String tagNames = "Java, Spring, Best Practices";
-        List<String> tagList = Arrays.stream(tagNames.split(","))
-                .map(String::trim)
-                .filter(string -> !string.isEmpty())
-                .collect(Collectors.toList());
-        System.out.println("Задание 5: " + tagList);
+        // 2. Теги — необязательное поле
+        Set<String> tags = null;
+        if (tagInput!= null && !tagInput.isEmpty()) {
+            tags = Arrays.stream(tagInput.split(","))
+                    .map(String::trim)
+                    .filter(string -> !string.isEmpty())
+                    .collect(Collectors.toSet());
+        }
+        System.out.println("Название: " + title);
+        System.out.println("Авторы: " + authors);
+        System.out.println("Теги: " + tags);
     }
 }
