@@ -6,6 +6,7 @@ import com.dobrynya.bookshelf.service.BookService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDate;
@@ -43,6 +44,7 @@ public class WebController {
         return "book-form";
     }
 
+    @PostMapping("/books")
     public String createBook(
             @RequestParam String title,
             @RequestParam String authorNames,
