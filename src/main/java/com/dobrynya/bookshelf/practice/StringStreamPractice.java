@@ -2,6 +2,7 @@ package com.dobrynya.bookshelf.practice;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -34,5 +35,12 @@ public class StringStreamPractice {
                 .filter(string -> !string.isEmpty())
                 .collect(Collectors.toSet());
         System.out.println("Задание 4: " + authorSet2);
+
+        String tagNames = "Java, Spring, Best Practices";
+        List<String> tagList = Arrays.stream(tagNames.split(","))
+                .map(String::trim)
+                .filter(string -> !string.isEmpty())
+                .collect(Collectors.toList());
+        System.out.println("Задание 5: " + tagList);
     }
 }
