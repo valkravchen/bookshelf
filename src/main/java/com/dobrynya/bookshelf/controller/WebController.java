@@ -36,16 +36,8 @@ public class WebController {
         return "book-list";
     }
 
-//    @GetMapping("/books/new")
-//    public String showCreateForm() {
-//        return "book-form";
-//    }
-//
-//    public String createBook(
-//            @RequestParam String title,
-//            @RequestParam String authorNames,
-//            @RequestParam(required = false) String tagNames
-//    ) {
-//        Set<String> authorSet = Arrays.stream(authorNames.split(","))
-//    }
+    @GetMapping("/books/new")
+    public String showCreateForm() {
+        return "book-form";
+    }
 }
