@@ -12,7 +12,7 @@
 <p th:if="${#lists.isEmpty(books)}">
     Библиотека пуста. Добавьте первую книгу!
 </p>
-
+<a th:href="@{/books/new}">+ Добавить книгу</a>
 <!-- Таблица, если книги есть -->
 <table border="1" th:unless="${#lists.isEmpty(books)}">
     <thead>
