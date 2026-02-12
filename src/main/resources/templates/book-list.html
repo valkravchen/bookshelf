@@ -9,6 +9,13 @@
 <h1>Мои книги</h1>
 <a th:href="@{/books/new}">+ Добавить книгу</a>
 
+<form th:action="@{/books}" method="get" style="display:inline;">
+    <input type="text" name="search" th:value="${search}"
+           placeholder="Поиск по названию...">
+    <button type="submit">Найти</button>
+    <a th:href="@{/books}">Сбросить</a>
+</form>
+
 <!-- Сообщение, если книг нет -->
 <p th:if="${#lists.isEmpty(books)}">
     Библиотека пуста. Добавьте первую книгу!
