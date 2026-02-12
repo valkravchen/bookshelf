@@ -34,9 +34,15 @@ public class WebController {
     }
 
     @GetMapping("/books")
-    public String listBooks(Model model) {
-        List<BookResponseDTO> books = bookService.findAll();
+    public String listBooks(@RequestParam(required = false) String search, Model model) {
+        List<BookResponseDTO> books;
+        if (search != null && !search.isBlank()) {
+            books = bookService.searchByTitle(search);
+        } else {
+            books = bookService.findAll();
+        }
         model.addAttribute("books", books);
+        model.addAttribute("search", search);
         return "book-list";
     }
 
