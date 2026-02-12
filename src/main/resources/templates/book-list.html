@@ -15,7 +15,10 @@
     <button type="submit">Найти</button>
     <a th:href="@{/books}">Сбросить</a>
 </form>
-
+<p th:if="${serch != null and !search.isEmpty()}">
+    Результаты поиска по: «<span th:text="${search}">запрос</span>»
+    (найдено: <span th:text="${#lists.size(books)}">0</span>)
+</p>
 <!-- Сообщение, если книг нет -->
 <p th:if="${#lists.isEmpty(books)}">
     Библиотека пуста. Добавьте первую книгу!
