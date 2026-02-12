@@ -24,6 +24,11 @@
     Библиотека пуста. Добавьте первую книгу!
 </p>
 <!-- Таблица, если книги есть -->
+<!-- Поиск не дал результатов -->
+<p th:if="${#lists.isEmpty(books) and search != null and !search.isEmpty()}">
+    По запросу «<span th:text="${search}">запрос</span>» ничего не найдено.
+    <a th:href="@{???}">Сбросить</a>
+</p>
 <table border="1" th:unless="${#lists.isEmpty(books)}">
     <thead>
     <tr>
